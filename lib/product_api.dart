@@ -6,7 +6,13 @@ class ProductApi {
 
   Future<List<Product>> getProducts() async {
     final response = await dio.get('https://dummyjson.com/products');
-    final List products = response.data['products'];
-    return products.map((item) => Product.fromJson(item)).toList();
+    final List productsJson = response.data['products'];
+    final List<Product> products = [];
+
+    for (final item in productsJson) {
+      products.add(Product.fromJson(item));
+    }
+
+    return products;
   }
 }
